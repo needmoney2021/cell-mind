@@ -10,3 +10,4 @@ model/*.pth
 tokenizer/*.model
 tokenizer/*.vocab
 **/__pycache__
+.DS_Store
