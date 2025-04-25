@@ -22,5 +22,10 @@ block.eval()
 def forward(req: TensorRequest) -> TensorResponse:
     with torch.no_grad():
         x = torch.tensor(req.data, dtype=torch.float32)
-        y = block(x)
+
+        if req.mask:
+            mask = torch.tensor(req.mask, dtype=torch.float32)
+            y = block(x, mask=mask)
+        else:
+            y = block(x)
         return TensorResponse(result=y.tolist())

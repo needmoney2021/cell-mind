@@ -1,3 +1,4 @@
+import torch
 import torch.nn as nn
 
 __all__ = ['TransformerBlock']
@@ -13,5 +14,5 @@ class TransformerBlock(nn.Module):
             batch_first=True,
         )
 
-    def forward(self, x):
-        return self.block(x)
+    def forward(self, x, mask: torch.Tensor = None):
+        return self.block(x, src_mask=mask)
