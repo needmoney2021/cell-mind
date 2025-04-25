@@ -9,3 +9,4 @@ model/*.pt
 model/*.pth
 tokenizer/*.model
 tokenizer/*.vocab
+**/__pycache__
