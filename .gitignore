@@ -1,0 +1,11 @@
+.venv
+.idea
+.vscode
+.cursor
+data/for-model-training/**
+data/for-tokenizer-training/**
+data/raw/**
+model/*.pt
+model/*.pth
+tokenizer/*.model
+tokenizer/*.vocab
