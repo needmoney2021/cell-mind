@@ -169,8 +169,8 @@ python -m tokenizer --input data/for-tokenizer-training/textonly.txt --model-pre
 ```
 
 ```bash
-> ls tokenizer
-ls -al tokenizer
+> ls -al tokenizer
+
 total 1000tokenizer                                                                                                                                            ─╯
 drwxr-xr-x   8 needmoney  staff     256 Apr 29 13:37 .
 drwxr-xr-x  20 needmoney  staff     640 Apr 29 13:46 ..
