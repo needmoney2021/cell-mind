@@ -7,6 +7,7 @@ import sentencepiece as spm
 
 @dataclass
 class TokenizerConfig:
+    input_file: str = "input.txt"
     vocab_size: int = 8000
     model_prefix: str = "tokenizer"
     character_coverage: float = 1.0
@@ -23,8 +24,11 @@ class SentencePieceTokenizer:
     ):
         self.config = config or TokenizerConfig()
         self.model_path = model_path
-        self.sp = spm.SentencePieceProcessor()
 
+        print("##############")
+        print(self.model_path)
+
+        self.sp = spm.SentencePieceProcessor()
         if model_path and os.path.exists(model_path):
             self.sp.Load(model_path)
         else:
@@ -33,16 +37,10 @@ class SentencePieceTokenizer:
     def _initialize_tokenizer(self):
         """Initialize the tokenizer with control and user-defined tokens"""
         # Prepare input file for training
-        input_file = f"{self.config.model_prefix}_input.txt"
 
-        # Write control tokens and user-defined tokens to input file
-        with open(input_file, 'w') as f:
-            if self.config.control_tokens:
-                for token in self.config.control_tokens:
-                    f.write(f"{token}\n")
-            if self.config.user_defined_tokens:
-                for token in self.config.user_defined_tokens:
-                    f.write(f"{token}\n")
+        print("##### initialize_tokenizer  #####")
+
+        input_file = self.config.input_file
 
         # Train the model
         spm.SentencePieceTrainer.Train(
@@ -56,12 +54,12 @@ class SentencePieceTokenizer:
             --unk_id=1
             --bos_id=2
             --eos_id=3
-            --pad_piece=[PAD]
-            --unk_piece=[UNK]
-            --bos_piece=[BOS]
-            --eos_piece=[EOS]
+            --pad_piece=[pad]
+            --unk_piece=[unk]
+            --bos_piece=[bos]
+            --eos_piece=[eos]
             --user_defined_symbols={','.join(self.config.control_tokens + self.config.user_defined_tokens) if self.config.control_tokens and self.config.user_defined_tokens else ''}
-            """
+            """.strip().replace("\n", "")
         )
 
         # Load the trained model

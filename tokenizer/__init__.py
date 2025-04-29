@@ -44,6 +44,7 @@ def train_tokenizer(
 
     # Set up tokenizer configuration
     config = TokenizerConfig(
+        input_file=input_file,
         vocab_size=vocab_size,
         model_prefix=os.path.join(output_dir, model_prefix),
         character_coverage=character_coverage,
@@ -53,12 +54,11 @@ def train_tokenizer(
     )
 
     # Initialize and train tokenizer
-    tokenizer = SentencePieceTokenizer(config)
-
+    logging.info(f"Training tokenizer with config: {config}")
     # Save the trained model
     model_path = os.path.join(output_dir, f"{model_prefix}.model")
-    tokenizer.save(model_path)
-
+    logging.info(f"Saving tokenizer model to {model_path}")
+    tokenizer = SentencePieceTokenizer(config, model_path)
     logging.info(f"Tokenizer trained and saved to {model_path}")
     logging.info(f"Vocabulary size: {tokenizer.get_vocab_size()}")
 
@@ -89,7 +89,3 @@ def main():
         control_tokens=args.control_tokens,
         user_defined_tokens=args.user_defined_tokens
     )
-
-
-if __name__ == "__main__":
-    main()

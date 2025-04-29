@@ -10,9 +10,6 @@ from torch.utils.data import Dataset
 class TextDataset(Dataset):
 
     DEFAULT_SPECIAL_TOKENS: Dict[str, str] = {
-        "bos": "<|start|>",
-        "eol": "<|eol|>",
-        "eos": "<|endoftext|>",
         "url": "<|url|>",
         "photo": "<|photo|>",
         "video": "<|video|>",
