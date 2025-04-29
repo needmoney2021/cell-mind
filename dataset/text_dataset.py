@@ -9,11 +9,7 @@ from torch.utils.data import Dataset
 
 class TextDataset(Dataset):
 
-    DEFAULT_SPECIAL_TOKENS: Dict[str, str] = {
-        "url": "<|url|>",
-        "photo": "<|photo|>",
-        "video": "<|video|>",
-    }
+    DEFAULT_SPECIAL_TOKENS: Dict[str, str] = {}
 
     def __init__(
         self,

@@ -1,5 +1,5 @@
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import List, Optional
 
 import sentencepiece as spm
@@ -12,8 +12,8 @@ class TokenizerConfig:
     model_prefix: str = "tokenizer"
     character_coverage: float = 1.0
     model_type: str = "bpe"
-    control_tokens: List[str] = None
-    user_defined_tokens: List[str] = None
+    control_tokens: List[str] = field(default_factory=list)
+    user_defined_tokens: List[str] = field(default_factory=list)
 
 
 class SentencePieceTokenizer:
