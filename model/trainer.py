@@ -32,6 +32,7 @@ class Trainer:
         self.tokenizer = SentencePieceTokenizer(model_path=config['tokenizer']['model_path'])
 
         # Setup distributed training
+
         self.rank = setup_distributed()
 
         # Initialize model
@@ -63,7 +64,7 @@ class Trainer:
         """Create a data loader for the specified split."""
         # 데이터셋 설정
         dataset = TextDataset(
-            jsonl_file=f'kakaotalk_{split}_data.jsonl',
+            jsonl_file=self.config['training']['dataset']['path'],
             tokenizer=self.tokenizer,
             max_seq_len=self.config['model']['max_seq_len'],
             special_tokens=self.config['tokenizer']['special_tokens']
