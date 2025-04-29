@@ -25,9 +25,6 @@ class SentencePieceTokenizer:
         self.config = config or TokenizerConfig()
         self.model_path = model_path
 
-        print("##############")
-        print(self.model_path)
-
         self.sp = spm.SentencePieceProcessor()
         if model_path and os.path.exists(model_path):
             self.sp.Load(model_path)
@@ -37,8 +34,6 @@ class SentencePieceTokenizer:
     def _initialize_tokenizer(self):
         """Initialize the tokenizer with control and user-defined tokens"""
         # Prepare input file for training
-
-        print("##### initialize_tokenizer  #####")
 
         input_file = self.config.input_file
 
