@@ -6,6 +6,8 @@ import subprocess
 from pathlib import Path
 from typing import Dict
 
+from orchestrator.distributor import distribute_file
+
 
 def setup_logging():
     """Set up logging configuration."""
