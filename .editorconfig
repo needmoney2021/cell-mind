@@ -2,3 +2,9 @@
 indent_size = 4
 indent_style = space
 end_of_line = crlf
+
+[*.{json,jsonl,jsonc}]
+
+indent_size = 2
+indent_style = space
+end_of_line = crlf

@@ -221,7 +221,7 @@ drwxr-xr-x   5 needmoney  staff     160 Apr 29 13:36 __pycache__
   "training": {
     "batch_size":  32,
     "epochs":      3,
-    "lr":          3e-4,
+    "lr":          3e-4, // 학습률
     "dataset": {
       "path":      "data/for-model-training/train.jsonl",
       "seq_len":   256

@@ -1,16 +1,33 @@
 {
   "distributed": {
     "backend": "gloo",
-    "init_method": "tcp://[YOUR_IP]:23456",
+    "init_method": "tcp://192.168.0.100:23456",
     "world_size": 3,
-    "local_rank": -1,
     "worker_ips": [
-      "192.168.0.101",
       "192.168.0.102"
     ],
     "usernames": {
-      "192.168.0.101": "laptop_user",
       "192.168.0.102": "termux_user"
+    }
+  },
+  "model": {
+    "d_model":     512,
+    "nhead":       8,
+    "num_layers":  6,
+    "dropout":     0.1,
+    "checkpoint":  "checkpoints/minigpt.pt"
+  },
+  "tokenizer": {
+    "model_path":  "tokenizer/tokenizer.model",
+    "vocab_size":  8000
+  },
+  "training": {
+    "batch_size":  32,
+    "epochs":      3,
+    "lr":          3e-4,
+    "dataset": {
+      "path":      "data/for-model-training/train.jsonl",
+      "seq_len":   256
     }
   }
 }

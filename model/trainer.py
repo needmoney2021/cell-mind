@@ -12,6 +12,7 @@ from model.simple_gpt import SimpleGPT
 from shared.dist_utils import setup_distributed
 from shared.checkpoint import CheckpointManager
 from dataset.text_dataset import TextDataset
+from tokenizer import SentencePieceTokenizer
 
 
 class Trainer:
@@ -27,6 +28,8 @@ class Trainer:
         self.config = config
         self.ckpt_mgr = CheckpointManager(config)
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+        self.tokenizer = SentencePieceTokenizer(model_path=config['tokenizer']['model_path'])
 
         # Setup distributed training
         self.rank = setup_distributed()
