@@ -43,12 +43,12 @@ pip install -r requirements.txt
 
 ## 2. 데이터 & 토크나이저
 
-| 단계     | 파일/디렉터리                                                                                                                | 설명                                      |
-|--------|------------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
-| ① 🔨   | `data/raw/*.txt`                                                                                                       | 원본 로 데이터                                |
-| ② 🔨   | **토크나이저 학습**<br>`python -m tokenizer`                                                                                  | → `{path}/tokenizer.model`              |
-| ③ TODO | **JSONL 변환**<br>각 줄 `{"text": "..."} `                                                                                 | → `data/for-model-training/train.jsonl` |
-| ④ TODO | 학습 시 **`TextDataset`** 가 이 JSONL을 읽어 자동으로 `<\|start\|> … <\|endoftext\|>` 토큰을 붙이고, `collate_fn` 으로 배치 패딩(-100 mask) 처리 |
+| 단계   | 파일/디렉터리                                                                                                                | 설명                                      |
+|------|------------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
+| ①  | `data/raw/*.txt`                                                                                                       | 원본 로 데이터                                |
+| ②  | **토크나이저 학습**<br>`python -m tokenizer`                                                                                  | → `{path}/tokenizer.model`              |
+| ③  | **JSONL 변환**<br>각 줄 `{"text": "..."} `                                                                                 | → `data/for-model-training/train.jsonl` |
+| ④  | 학습 시 **`TextDataset`** 가 이 JSONL을 읽어 자동으로 `<\|start\|> … <\|endoftext\|>` 토큰을 붙이고, `collate_fn` 으로 배치 패딩(-100 mask) 처리 |
 
 ### 2.1 예제. raw_data
 
@@ -165,7 +165,7 @@ for name in names:
 ### 2.3 예제. 토크나이저 학습 실행.
 
 ```bash
-python -m tokenizer --input data/for-tokenizer-training/textonly.txt --model-prefix minigpt --character-coverage 0.98 --model-type bpe --output-dir tokenizer
+python -m tokenizer --input data/for-tokenizer-training/textonly.txt --model-prefix minigpt --character-coverage 0.98 --model-type bpe --output-dir tokenizer --user-defined-tokens \<MOVIE\> \<PHOTO\> \<SPEAKER\> \<URL\> \<EMOJI\> \<NAME\>
 ```
 
 ```bash

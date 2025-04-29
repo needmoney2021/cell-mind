@@ -38,24 +38,28 @@ class SentencePieceTokenizer:
         input_file = self.config.input_file
 
         # Train the model
-        spm.SentencePieceTrainer.Train(
-            f"""
-            --input={input_file}
-            --model_prefix={self.config.model_prefix}
-            --vocab_size={self.config.vocab_size}
-            --character_coverage={self.config.character_coverage}
-            --model_type={self.config.model_type}
-            --pad_id=0
-            --unk_id=1
-            --bos_id=2
-            --eos_id=3
-            --pad_piece=[pad]
-            --unk_piece=[unk]
-            --bos_piece=[bos]
-            --eos_piece=[eos]
-            --user_defined_symbols={','.join(self.config.control_tokens + self.config.user_defined_tokens) if self.config.control_tokens and self.config.user_defined_tokens else ''}
-            """.strip().replace("\n", "")
-        )
+        flags = " ".join([
+            f"--input={input_file}",
+            f"--model_prefix={self.config.model_prefix}",
+            f"--vocab_size={self.config.vocab_size}",
+            f"--character_coverage={self.config.character_coverage}",
+            f"--model_type={self.config.model_type}",
+            "--pad_id=0",
+            "--unk_id=1",
+            "--bos_id=2",
+            "--eos_id=3",
+            "--pad_piece=[pad]",
+            "--unk_piece=[unk]",
+            "--bos_piece=[bos]",
+            "--eos_piece=[eos]",
+        ])
+
+        # user_defined_tokens 만으로도 동작하도록
+        symbols = (self.config.user_defined_tokens or [])
+        if symbols:
+            flags += " --user_defined_symbols=" + ",".join(symbols)
+
+        spm.SentencePieceTrainer.Train(flags)
 
         # Load the trained model
         self.sp.Load(f"{self.config.model_prefix}.model")
